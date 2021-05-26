@@ -6,5 +6,11 @@ def hello():
     return
 hello()
 
-
-
+your_name = str(input("You THERE! No TRESPASSING! What is Thy Name??"))
+print("Well then! You are lucky that you are on the list. Have a good day, " + your_name)
+    
+your_name = str(input("What's your name?"))
+birth_year = int(input("WHat year were you born? "))
+current_year = int(input("WHAT YEAR IS IT!?"))
+years_old = current_year - birth_year
+print("Hello " , your_name , "I believe that you are " , birth_year , "years old!")
