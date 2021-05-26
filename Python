@@ -1,0 +1,10 @@
+#Create Hello World Script
+
+def hello():
+    name=str(input("Whats your name? "))
+    print('I bid you and the world GOOD DAY! " + str(name))
+    return
+hello()
+
+
+
