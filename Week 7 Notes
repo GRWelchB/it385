@@ -1,0 +1,101 @@
+#Creating users through Playbooks/LAMPSetup.yml
+#.yml syntax - starts with --- 
+#ansible-playbook -i inventory.txt playbooks/LAMPSetup.yml
+#Must (Un)Install MariaDB&Apache as separate Playbooks
+#run cmd mkpasswd
+---
+- hosts: linux
+  tasks:
+  - name: Create user (bwelch/Password01)
+    user:
+	  name: bwelch
+	  password: Password01   #This password wont work
+    become: yes
+  - name: Create second user (ddevito/Get$h0rte3!)
+    become: yes
+	user: 
+	  name: ddevito
+	  password: "{{ 'Get$h0rte3!' | password_hash('sha512') }}"    #Ansible hash for us, works great, but PW is in plain text
+  - name: Create a third user (sysanalyst/Password02)
+    become: yes
+	user:
+	  name: sysanalyst
+      password: 'python3 PW encrypt output'  #we prehash the PW then input the encryption 
+	  
+	python3 -c 'import crypt,getpass;pq=getpass.getpass();print(crypt.crypt(pw) if (pw==getpass.getpass("Confirm: ")) else exit()))'
+	#Requests what PW you want
+	#Then it encrypts it
+	#Then it spits it out
+	
+	
+	
+################################################
+	#Install MariaDB with LAMPSetup.yml
+ - hosts: db
+   tasks:
+   - name: Install MariaDB
+     become: yes
+	 apt: 
+	   name: mariadb-server
+	   state: present
+   - name: Enable mariadb (set to start on boot)
+     become: yes
+	 service:
+	   name: mariadb
+	   enabled: yes
+   - name: Start mariadb
+     become: yes
+	 service:
+	   name: mariadb
+	   state: started
+#################################################
+
+#Install Apache
+ - hosts: Web
+   tasks:
+   - name: Install Apache
+     become: yes
+	 apt:
+	   name: mariadb-server
+	   state: present
+   - name: Enable Apache (set to start on boot)
+     become: yes
+	 service:
+	   name: Apache
+	   enabled: yes
+   - name: Start Apache
+     become: yes
+	 service:
+	   name: Apache
+	   state: started
+	   
+#######################################################################
+
+#Install Apache on Web
+
+- hosts: web
+  tasks:
+  - name: Install apache
+    become: yes
+    apt: name=apache2 state=present
+  - name: Set apache to run
+    become: yes
+	service: name=apache2 state=started enabled=yes
+  - name: Configure firewall to open http
+    become: yes
+	ufw:
+	  rule: allow
+	  port: 80
+	  proto: tcp
+    notify:
+	  - restart-firewall
+#There is 'one critical item missing from here, stopped week 7 LAMP Setup vid @ 43:03
+#Find one or two more missing components, update the playbook
+#Done
+	   
+#Week 7 lab - Write script in same language, uninstalling apache and maria 
+
+#Week 8 Activity - Create a new Playbook that uses the Ansible COPY module - its copies a new website onto the web servers
+ - Any website i want works - free templates are online
+#week 8 Lab - Create an Ansible Playbook to configure the CSR routers - G1 is configured and is a WAN link and management network
+
