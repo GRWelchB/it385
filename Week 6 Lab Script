@@ -1,0 +1,95 @@
+#Web1
+from pexpect import pxssh
+import sys
+
+session = pxssh.pxssh()
+session.logfile = sys.stdout.buffer
+session.login('192.168.0.111', 'justincase', 'Password01')
+
+session.sendline('sudo useradd brandonwelch -m')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+print('Create user successfully, gg Big Guy')
+#Set a random PW
+session.sendline('sudo apt update')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+session.sendline('sudo apt install apache')
+session.prompt()
+session.sendline('systemctl enable apache')
+session.prompt()
+session.sendline('exit')
+
+#Web2
+from pexpect import pxssh
+import sys
+
+session = pxssh.pxssh()
+session.logfile = sys.stdout.buffer
+session.login('192.168.0.112', 'justincase', 'Password01')
+
+session.sendline('sudo useradd brandonwelch -m')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+print('Create user successfully, gg Guy')
+#Set a random PW
+session.sendline('sudo apt update')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+session.sendline('sudo apt install apache')
+session.prompt()
+session.sendline('systemctl enable apache')
+session.prompt()
+session.sendline('exit')
+
+#DB1
+from pexpect import pxssh
+import sys
+
+session = pxssh.pxssh()
+session.logfile = sys.stdout.buffer
+session.login('192.168.0.121', 'justincase', 'Password01')
+
+session.sendline('sudo useradd brandonwelch -m')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+print('Create user successfully, gg Guy')
+#Set a random PW
+session.sendline('sudo apt update')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+session.sendline('sudo apt install mariadb')
+session.prompt()
+session.sendline('systemctl enable mariadb')
+session.prompt()
+session.sendline('exit')
+
+#DB2
+from pexpect import pxssh
+import sys
+
+session = pxssh.pxssh()
+session.logfile = sys.stdout.buffer
+session.login('192.168.0.122', 'justincase', 'Password01')
+
+session.sendline('sudo useradd brandonwelch -m')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+print('Create user successfully, gg Guy')
+#Set a random PW
+session.sendline('sudo apt update')
+session.prompt()
+session.sendline('Password01')
+session.prompt()
+session.sendline('sudo apt install mariadb')
+session.prompt()
+session.sendline('systemctl enable mariadb')
+session.prompt()
+session.sendline('exit')
